@@ -1,0 +1,378 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This webpage will present you everything you need to know before using the DecodexWatcher API. You may get a copy of the code here : https://github.com/pierre42100/decodexwatcherapi/",
+    "version": "0.0.1",
+    "title": "DecodexWatcher API",
+    "contact": {
+      "email": "api.decodexwatcher@communiquons.org"
+    },
+    "license": {
+      "name": "MIT License"
+    }
+  },
+  "host": "api.decodexwatcher.communiquons.org",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "welcome",
+      "description": "Home informations"
+    },
+    {
+      "name": "list",
+      "description": "Get the lists and update them"
+    },
+    {
+      "name": "site",
+      "description": "Information about a specific site"
+    },
+    {
+      "name": "changes",
+      "description": "Informations about the evolution of the official Decodex list"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/infos": {
+      "get": {
+        "tags": [
+          "welcome"
+        ],
+        "summary": "Get basic informations about the system",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Informations about the website"
+          }
+        }
+      }
+    },
+    "/list/get": {
+      "get": {
+        "tags": [
+          "list"
+        ],
+        "summary": "Get the current list (complete informations)",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The content of the list"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    },
+    "/list/get/current": {
+      "get": {
+        "tags": [
+          "list"
+        ],
+        "summary": "Get the current list (complete informations)",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The content of the list"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    },
+    "/list/get/{timestamp}": {
+      "get": {
+        "tags": [
+          "list"
+        ],
+        "summary": "Get the list valid at a specified time",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "timestamp",
+            "in": "path",
+            "description": "The timestamp of the list to get",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The content of the list"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    },
+    "/list/update": {
+      "post": {
+        "tags": [
+          "list"
+        ],
+        "summary": "Update the current list (protected)",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "token1",
+            "in": "formData",
+            "description": "The first token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "token2",
+            "in": "formData",
+            "description": "The second token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "token3",
+            "in": "formData",
+            "description": "The third token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A success message"
+          },
+          "401": {
+            "description": "Tokens are not valid"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    },
+    "/list/urls": {
+      "get": {
+        "tags": [
+          "list"
+        ],
+        "summary": "Get the list of available website associated to their urls",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A list with URLs as key"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    },
+    "/site/{url}/infos": {
+      "get": {
+        "tags": [
+          "site"
+        ],
+        "summary": "Get the informations about a specific website",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "path",
+            "description": "The URL of the website",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Informations about the website"
+          },
+          "401": {
+            "description": "Parametres are invalid"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    },
+    "/site/infos": {
+      "post": {
+        "tags": [
+          "site"
+        ],
+        "summary": "Get the informations about a specific website (POST method)",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "formData",
+            "description": "The URL of the website",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Informations about the website"
+          },
+          "401": {
+            "description": "Parametres are invalid"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    },
+    "/site/{url}/history": {
+      "get": {
+        "tags": [
+          "site"
+        ],
+        "summary": "Get the history informations about a specific website",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "path",
+            "description": "The URL of the website",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "History informations about the website"
+          },
+          "401": {
+            "description": "Parametres are invalid"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    },
+    "/site/history": {
+      "post": {
+        "tags": [
+          "site"
+        ],
+        "summary": "Get the history informations about a specific website (POST method)",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "formData",
+            "description": "The URL of the website",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "History informations about the website"
+          },
+          "401": {
+            "description": "Parametres are invalid"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    },
+    "/changes/get/{from}/{to}": {
+      "get": {
+        "tags": [
+          "changes"
+        ],
+        "summary": "Get the changes evolution",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "description": "The begin timestamp",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "to",
+            "in": "path",
+            "description": "The end timestamp",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The changes in the specified period"
+          },
+          "401": {
+            "description": "Parametres are invalid"
+          },
+          "500": {
+            "description": "An internal error occured"
+          }
+        }
+      }
+    }
+  }
+}
